@@ -1,0 +1,18 @@
+{
+  "store_name": "カフェ ひだまり",
+  "date_text": "2025年3月10日",
+  "items": [
+    {
+      "name": "ブレンド",
+      "quantity_text": "×2",
+      "amount_text": "¥ 900"
+    },
+    {
+      "name": "ケーキセット",
+      "quantity_text": "×1",
+      "amount_text": "¥ 850"
+    }
+  ],
+  "tax_text": "¥175",
+  "total_text": "¥1,925"
+}

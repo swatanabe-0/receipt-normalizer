@@ -13,7 +13,7 @@ from datetime import date
 from pathlib import Path
 
 from . import store
-from .extract import Extractor
+from .extract import Extractor, FatalExtractionError
 from .normalize import normalize
 from .validate import validate
 
@@ -63,6 +63,8 @@ def process_file(
 
     try:
         raw = extractor.extract(path)
+    except FatalExtractionError:
+        raise  # 設定の問題。ファイルごとの失敗として記録せず、呼び出し元で処理を止める
     except Exception as error:
         message = str(error)
         store.save_error(conn, file_hash=digest, source_name=path.name, message=message)

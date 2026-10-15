@@ -4,11 +4,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import sys
 from pathlib import Path
 
 from . import store
-from .extract import ExtractionError, Extractor, FixtureExtractor, GeminiExtractor
+from .extract import (
+    ExtractionError,
+    Extractor,
+    FatalExtractionError,
+    FixtureExtractor,
+    GeminiExtractor,
+    ThrottledExtractor,
+)
 from .pipeline import (
     OUTCOME_ERROR,
     OUTCOME_NEEDS_REVIEW,
@@ -40,12 +48,20 @@ def _cmd_ingest(args: argparse.Namespace) -> int:
 
     try:
         extractor = _build_extractor(args.extractor)
+        if args.min_interval > 0:
+            # 回数制限のある API を、続けて呼ぶときに、制限に当たらないよう間隔をあける
+            extractor = ThrottledExtractor(extractor, args.min_interval)
     except ExtractionError as error:
         print(f"設定エラー: {error}", file=sys.stderr)
         return 2
 
     conn = store.connect(args.db)
-    outcomes = process_directory(directory, extractor, conn)
+    try:
+        outcomes = process_directory(directory, extractor, conn)
+    except FatalExtractionError as error:
+        # モデルが無い・キーが無効など。どのファイルでも同じなので、全体を止めて原因を伝える
+        print(f"\n中断しました: {error}", file=sys.stderr)
+        return 2
 
     counts: dict[str, int] = {}
     for outcome in outcomes:
@@ -99,6 +115,9 @@ def main(argv: list[str] | None = None) -> int:
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")
 
+    # 回数制限による待機など、途中の状況を表示する
+    logging.basicConfig(level=logging.WARNING, format="%(message)s")
+
     parser = argparse.ArgumentParser(
         prog="receipt-normalizer",
         description="形式の異なるレシート画像を、共通のスキーマに正規化して SQLite に取り込みます。",
@@ -113,6 +132,13 @@ def main(argv: list[str] | None = None) -> int:
         choices=["gemini", "fixture"],
         default="gemini",
         help="読み取り方法。fixture は、API キー無しで試すための固定結果",
+    )
+    ingest.add_argument(
+        "--min-interval",
+        type=float,
+        default=0,
+        metavar="SECONDS",
+        help="読み取りの間隔（秒）。回数制限のある API 用。無料枠の「1分に5回」なら 13 など",
     )
     ingest.set_defaults(func=_cmd_ingest)
 

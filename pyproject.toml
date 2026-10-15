@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "receipt-normalizer"
+version = "0.1.0"
+description = "形式の異なるレシート画像を、共通のスキーマに正規化して SQLite に取り込む最小構成のサンプル"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.6",
+    "google-genai>=1.0",
+]
+
+[project.optional-dependencies]
+# サンプル画像の生成にだけ必要
+samples = ["pillow>=10"]
+dev = [
+    "pillow>=10",
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+receipt-normalizer = "receipt_normalizer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# 行の長さは、整形（ruff format）に任せる。
+# 日本語のコメントは全角で幅が大きく、機械的な折り返しに向かないため、E501 は対象外にする。
+ignore = ["E501"]

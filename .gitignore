@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# 実行時に作られるデータベース・出力
+*.db
+*.sqlite3
+out/
+
+# 環境変数・秘密情報（API キーを誤って公開しないための予防）
+.env
+.env.*
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

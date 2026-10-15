@@ -41,3 +41,12 @@ jobs:
 
       - name: Test (pytest)
         run: pytest
+
+      # 記録した「実際の API の出力」を、正解データと比べる。
+      # 変換・検証のロジックを変えて、間違っているのに「正常」になるものが生まれたら、ここで失敗する。
+      - name: Evaluate (recorded model outputs)
+        run: >
+          receipt-normalizer evaluate samples/receipts
+          --extractor recorded
+          --recorded-dir samples/recorded/gemini-3.8-flash
+          --fail-on-silent-error

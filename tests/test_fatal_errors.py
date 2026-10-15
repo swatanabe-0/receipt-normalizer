@@ -96,7 +96,9 @@ def test_cli_stops_with_explanation(tmp_path, monkeypatch, capsys):
         def extract(self, path):
             raise FatalExtractionError("モデルが利用できません（HTTP 404）")
 
-    monkeypatch.setattr("receipt_normalizer.cli._build_extractor", lambda kind: BrokenSetup())
+    monkeypatch.setattr(
+        "receipt_normalizer.cli._build_extractor", lambda kind, recorded_dir=None: BrokenSetup()
+    )
 
     code = main(["ingest", str(SAMPLES), "--db", str(tmp_path / "c.db")])
 

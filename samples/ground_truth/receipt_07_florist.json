@@ -1,0 +1,18 @@
+{
+  "store_name": "花の店 つぼみ",
+  "purchased_on": null,
+  "tax": null,
+  "total": 1900,
+  "items": [
+    {
+      "name": "ブーケ（小）",
+      "quantity": 1,
+      "amount": 1800
+    },
+    {
+      "name": "メッセージカード",
+      "quantity": 1,
+      "amount": 100
+    }
+  ]
+}

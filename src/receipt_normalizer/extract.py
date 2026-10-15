@@ -137,6 +137,23 @@ class FixtureExtractor:
         return RawReceipt.model_validate_json(sidecar.read_text(encoding="utf-8"))
 
 
+class RecordedExtractor:
+    """過去に、実際の API から得た出力を、記録したファイル（`<画像名>.json`）から返す。
+
+    API キー・通信・無料枠の上限に関係なく、「実際のモデルの出力」に対する評価を、再現するためのもの。
+    記録が無いファイルは、読み取り失敗として扱う。
+    """
+
+    def __init__(self, directory: Path) -> None:
+        self._directory = directory
+
+    def extract(self, path: Path) -> RawReceipt:
+        recorded = self._directory / f"{path.stem}.json"
+        if not recorded.exists():
+            raise ExtractionError(f"記録された出力がありません: {recorded.name}")
+        return RawReceipt.model_validate_json(recorded.read_text(encoding="utf-8"))
+
+
 class GeminiExtractor:
     """Gemini API で、画像から RawReceipt を取り出す。
 

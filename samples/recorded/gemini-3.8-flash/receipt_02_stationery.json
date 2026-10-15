@@ -1,0 +1,18 @@
+{
+  "store_name": "文具店 みどり",
+  "date_text": "令和7年3月8日(土)",
+  "items": [
+    {
+      "name": "ノート A5",
+      "quantity_text": "3",
+      "amount_text": "660円"
+    },
+    {
+      "name": "ボールペン 黒",
+      "quantity_text": "2",
+      "amount_text": "400円"
+    }
+  ],
+  "tax_text": "(内税 96円)",
+  "total_text": "1,060円"
+}

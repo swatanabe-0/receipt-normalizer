@@ -1,0 +1,23 @@
+{
+  "store_name": "まるみ商店",
+  "date_text": "R7.3.9 18:02",
+  "items": [
+    {
+      "name": "牛乳",
+      "quantity_text": "1",
+      "amount_text": "2 1 0"
+    },
+    {
+      "name": "卵 10個",
+      "quantity_text": "1",
+      "amount_text": "2 8 0"
+    },
+    {
+      "name": "食パン",
+      "quantity_text": "2",
+      "amount_text": "4 0 0"
+    }
+  ],
+  "tax_text": null,
+  "total_text": "8 9 0"
+}

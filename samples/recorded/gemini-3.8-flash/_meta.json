@@ -1,0 +1,6 @@
+{
+  "model": "gemini-3.8-flash",
+  "captured": "2026-10",
+  "source": "receipt-normalizer ingest を、実際の Gemini API に対して実行した出力（印字されたままの文字列）",
+  "note": "07・09 は、サーバーの不調と無料枠の上限により、取得できていない"
+}

@@ -1,0 +1,23 @@
+{
+  "store_name": "ベーカリー あおぞら",
+  "purchased_on": "2025-03-07",
+  "tax": 77,
+  "total": 1050,
+  "items": [
+    {
+      "name": "クロワッサン",
+      "quantity": 2,
+      "amount": 320
+    },
+    {
+      "name": "食パン 1斤",
+      "quantity": 1,
+      "amount": 280
+    },
+    {
+      "name": "コーヒー",
+      "quantity": 1,
+      "amount": 450
+    }
+  ]
+}

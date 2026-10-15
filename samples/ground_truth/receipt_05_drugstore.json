@@ -1,0 +1,23 @@
+{
+  "store_name": "HIDAMARI DRUG STORE",
+  "purchased_on": "2025-03-11",
+  "tax": 253,
+  "total": 2790,
+  "items": [
+    {
+      "name": "Vitamin C",
+      "quantity": 1,
+      "amount": 1280
+    },
+    {
+      "name": "Mask 30pcs",
+      "quantity": 2,
+      "amount": 1160
+    },
+    {
+      "name": "Tissue",
+      "quantity": 1,
+      "amount": 350
+    }
+  ]
+}

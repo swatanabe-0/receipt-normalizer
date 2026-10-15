@@ -1,0 +1,28 @@
+{
+  "store_name": "お弁当の はなまる",
+  "purchased_on": "2025-03-12",
+  "tax": null,
+  "total": 980,
+  "items": [
+    {
+      "name": "日替わり弁当",
+      "quantity": 1,
+      "amount": 580
+    },
+    {
+      "name": "お茶",
+      "quantity": 1,
+      "amount": 150
+    },
+    {
+      "name": "サラダ",
+      "quantity": 1,
+      "amount": 350
+    },
+    {
+      "name": "値引き",
+      "quantity": 1,
+      "amount": -100
+    }
+  ]
+}

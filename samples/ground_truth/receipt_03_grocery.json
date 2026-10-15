@@ -1,0 +1,23 @@
+{
+  "store_name": "まるみ商店",
+  "purchased_on": "2025-03-09",
+  "tax": null,
+  "total": 890,
+  "items": [
+    {
+      "name": "牛乳",
+      "quantity": 1,
+      "amount": 210
+    },
+    {
+      "name": "卵 10個",
+      "quantity": 1,
+      "amount": 280
+    },
+    {
+      "name": "食パン",
+      "quantity": 2,
+      "amount": 400
+    }
+  ]
+}

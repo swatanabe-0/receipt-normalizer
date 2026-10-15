@@ -37,9 +37,20 @@ def parse_amount(text: str | None) -> int | None:
     if text is None:
         return None
     s = to_halfwidth(text).replace("¥", " ").replace("円", " ")
+
+    # 画像の字間が広いと、モデルは数字を1文字ずつ空白で区切って書き写すことがある（'8 9 0'）。
+    # 1桁ずつ区切られた数字は、つなげて1つの数として扱う。
+    s = re.sub(r"(?<!\d)\d(?:\s+\d)+(?!\d)", lambda m: re.sub(r"\s+", "", m.group()), s)
+
     match = re.search(r"([-−▲△]?)\s*(\d[\d,]*)(?:\.(\d+))?\s*([-−])?", s)
     if not match:
         raise ValueError(f"金額として読み取れません: {text!r}")
+
+    # 読み取った数のほかに、数字が残っているなら、一部だけを読んでしまった可能性がある。
+    # 黙って「一部の数」を採用すると、間違いに気づけない（'8 9 0' を 8 と読む、など）ので、失敗として扱う。
+    leftover = s[: match.start()] + s[match.end() :]
+    if re.search(r"\d", leftover):
+        raise ValueError(f"金額に、読み取りきれない数字が含まれています: {text!r}")
 
     prefix, integer_part, fraction, suffix = match.groups()
     if fraction and set(fraction) != {"0"}:
